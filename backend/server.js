@@ -13,6 +13,9 @@ console.log(PORT)
 app.use(helmet());
 app.use(express.json());
 app.use(cors())
+// delete this line after testing
+app.use(morgan("common"));
+app.use("/api/products", productRoutes);
 
 
 app.get("/api/products", (req, res) => {
