@@ -28,3 +28,7 @@ app.get("/api/products", (req, res) => {
 app.listen(PORT, () => {
   console.log("Server is running on port " + PORT  );
 })
+
+router.put("/:id", updateProduct);
+router.delete("/:id", deleteProduct); 
+
