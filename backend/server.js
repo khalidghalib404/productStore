@@ -2,20 +2,45 @@ import express from "express"
 import helmet from "helmet"
 import morgan from "morgan"
 import cors from "cors"
-import dotenv from "dotenv" 
-import productRoutes from "./routes/productRoutes.js"
+import dotenv from "dotenv"
+import productRoutes from "./routes/productRouts.js"
+import { sql } from "./config/db.js"
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT;
 console.log(PORT)
-app.use(helmet());
+app.use(helmet());// helmet is a security middleware that sets various HTTP headers to protect the app from common web vulnerabilities.
 app.use(express.json());
 app.use(cors())
-// delete this line after testing
-app.use(morgan("common"));
-app.use("/api/products", productRoutes);
+app.use(morgan("dev"));//log the requests  
+app.use("/api/products", productRoutes); 
+
+ 
+async  function  initDB(){
+  try{
+  await sql`CREATE TABLE IF NOT EXISTS products (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  image VARCHAR(255) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL, 
+  created_at  Timestamp DEFAULT CURRENT_TIMESTAMP 
+  )
+  
+  
+   `;
+   console.log("Database initialized successfully")
+  } catch(err){
+    console.log("error initDB", err)
+  }
+}
+initDB().then(()=>{
+  app.listen(PORT, () => {
+    console.log("Server is running on port " + PORT  );
+  })
+})
+
 
 
 app.get("/api/products", (req, res) => {
@@ -25,10 +50,9 @@ app.get("/api/products", (req, res) => {
   })
 })
 
-app.listen(PORT, () => {
-  console.log("Server is running on port " + PORT  );
-})
+// app.listen(PORT, () => {
+//   console.log("Server is running on port " + PORT  );
+// })
 
-router.put("/:id", updateProduct);
-router.delete("/:id", deleteProduct); 
+
 
