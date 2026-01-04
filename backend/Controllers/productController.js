@@ -39,10 +39,25 @@ export const createProduct = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
     // Logic to update a product in the database
+    
+    const {id} = req.params;
+    const {name,price,image} = req.body;
+        
+
+    
+
+
+
+
+
 }
 
 
 export const deleteProduct = async (req, res) => {
     // Logic to delete a product from the database
+    const {id} = req.params;
+
+    
+   
 }
 
