@@ -42,7 +42,7 @@ export const updateProduct = async (req, res) => {
     
     const {id} = req.params;
     const {name,price,image} = req.body;
-        
+    
 
     
 
@@ -56,6 +56,11 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
     // Logic to delete a product from the database
     const {id} = req.params;
+    try{
+
+    }catch(err){
+        
+    }
 
     
    
