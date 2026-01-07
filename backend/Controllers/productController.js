@@ -1,5 +1,8 @@
 import {sql} from "../config/db.js";
 
+
+
+// CRUD OPERATIONS FOR PRODUCTS
 export const getProducts = async (req, res) => {
     // Logic to get all products from the database
     try{ 
@@ -52,6 +55,22 @@ export const updateProduct = async (req, res) => {
     
     const {id} = req.params;
     const {name,price,image} = req.body;
+
+
+    try {
+    const updatedProduct = await sql`UPDATE products SET name = ${name}, price = ${price}, image = ${image} WHERE id = ${id}
+    RETURNING *
+    `;
+    if (updatedProduct.length === 0){
+        return res.status(404).json({success:false, message:"Product not found"});
+        
+    }
+        res.status(200).json({success:true, message:"Product updated successfully"});
+    } catch (error) {
+        console.log("Error in updating product:", error.message);
+        res.status(500).json({success:false, message:"Server Error"});
+        
+    }
     
 
     
@@ -65,7 +84,21 @@ export const updateProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
     // Logic to delete a product from the database
-  
+  const {id} = req.params.id;
+
+  try {
+    const deleteProduct = await sql`DELETE FROM products WHERE id = ${id} RETURNING *`;
+     res.status(200).json({success:true, message:"Product deleted successfully"});
+    
+     if (deleteProduct.length === 0){
+        return res.status(404).json({success:false, message:"Product not found"});
+     }
+
+
+  } catch (error) {
+     console.log("Error in deleting product:", error.message);
+      res.status(500).json({success:false, message:"Server Error"});
+  }
    
 }
 
