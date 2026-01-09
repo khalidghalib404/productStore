@@ -1,4 +1,4 @@
-import express from "express"
+import express, { request } from "express"
 import helmet from "helmet"
 import morgan from "morgan"
 import cors from "cors"
@@ -16,6 +16,37 @@ app.use(express.json());
 app.use(cors())
 app.use(morgan("dev"));//log the requests  
 app.use("/api/products", productRoutes); 
+
+//apply arcjet rate limit to all routes
+app.use (async (req,res,next)=>{
+  try{
+    const decision = await aj.protect(req,{
+       requested :1 // specipy that each  request consumes  1 token
+  });
+
+  if (decision.isDenied()){
+    if(decision.reason.isRateLimit()){
+      res.status(429).json({success:false, message:"Too many requests. Please try again later."});
+  }else if(decision.reason.isBot()){
+    res.status(403).json({success:false, message:"Bot detected. Access denied."})
+}else{
+  res.status(403).json({success:false, message:"Access denied."})
+}
+return;
+}
+
+//check for spoofed bots
+if(decision.results.some((results)=> results.reason.isBot()&&  result.reason.isSpoofed())){
+  res.status(403).json({success:false, message:"Spoofed bot detected. Access denied."})
+  return;
+}
+next();
+}   
+    catch(err){
+console.log("error in arcjet middleware", err);
+next(error)
+  }
+})
 
  
 async  function  initDB(){
