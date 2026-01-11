@@ -25,6 +25,7 @@ export const getProduct = async (req, res) => {
       res.status(200).json({success:true, data:product[0]});
     }catch(err){
       console.log("error in get the product function", err);
+      console.log("Error in fetching product by ID:", err.message);
       res.status(500).json({success:false, message:" internal Server Error"})
 
     }
