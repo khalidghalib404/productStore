@@ -47,6 +47,7 @@ export const createProduct = async (req, res) => {
      res.status(201).json({success:true, data:newProduct[0]}); 
     }catch(err){
         console.log("Error in creating product:", err.message);
+        console.log("Error in creating product:", err.message);
          res.status(500).json({success:false, message:"Server Error"});
     }
 }
@@ -68,6 +69,7 @@ export const updateProduct = async (req, res) => {
     }
         res.status(200).json({success:true, message:"Product updated successfully"});
     } catch (error) {
+        console.log("Error in updating product:", error.message);
         console.log("Error in updating product:", error.message);
         res.status(500).json({success:false, message:"Server Error"});
         
