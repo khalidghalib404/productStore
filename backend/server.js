@@ -44,6 +44,7 @@ next();
 }   
     catch(err){
 console.log("error in arcjet middleware", err);
+  
 next(error)
   }
 })
@@ -62,6 +63,8 @@ async  function  initDB(){
   
    `;
    console.log("Database initialized successfully")
+    console.log("DB connected successfully inside initDB")
+    
   } catch(err){
     console.log("error initDB", err)
   }
