@@ -27,6 +27,9 @@ export const aj = arcjet({
             //allow 10 requests per minute
             interval:10,
             capacity:10,
+            penaltyBoxDuration:300,
+            //penalty box duration in seconds
+            
           })
   ]
 

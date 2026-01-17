@@ -12,6 +12,7 @@ export const getProducts = async (req, res) => {
        res.status(200).json({success:true, data:products});
     }catch(err){
         console.log("Error in fetching products:", err.message);
+        
         res.status(500).json({success:false, message:"Server Error"});
     }
 }
@@ -49,6 +50,7 @@ export const createProduct = async (req, res) => {
         console.log("Error in creating product:", err.message);
         console.log("Error in creating product:", err.message);
          res.status(500).json({success:false, message:"Server Error"});
+
     }
 }
 
@@ -101,6 +103,9 @@ export const deleteProduct = async (req, res) => {
   } catch (error) {
      console.log("Error in deleting product:", error.message);
       res.status(500).json({success:false, message:"Server Error"});
+
+
+
   }
    
 }
