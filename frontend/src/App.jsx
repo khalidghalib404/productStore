@@ -28,6 +28,18 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <p>
+        This is a sample React application integrated with a backend server that uses Arcjet for security features like rate limiting and bot detection.
+      </p>
+      <p>
+        The backend server is running on port 3000 and the frontend is running on port 5173.
+      </p>
+
+        
+        <p>
+          The backend server is running on port 3000 and the frontend is running on port 5173.
+        </p>
+
     </>
   )
 }
