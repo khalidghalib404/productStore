@@ -17,11 +17,15 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <h1> this is a test</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
         <p>
+          <button>
+            Edit <code>src/App.jsx</code> and save to test HMR
+          </button>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
@@ -39,6 +43,8 @@ function App() {
         <p>
           The backend server is running on port 3000 and the frontend is running on port 5173.
         </p>
+         
+
 
     </>
   )
