@@ -6,18 +6,37 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
 
+
+
   return (
     <>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
+          
         </a>
+
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
       <h1>Vite + React</h1>
       <h1> this is a test</h1>
+
+      <div>
+        <p>
+          This is a sample React application integrated with a backend server that uses Arcjet for security features like rate limiting and bot detection.
+        </p>
+        <button>
+          click
+        </button>
+        <span>
+          
+          <button>
+            click
+          </button>
+        </span>
+      </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -43,6 +62,7 @@ function App() {
         <p>
           The backend server is running on port 3000 and the frontend is running on port 5173.
         </p>
+
          
 
 

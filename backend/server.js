@@ -86,6 +86,15 @@ app.get("/api/products", (req, res) => {
   })
 })
 
+
+//after test delete this git
+app.get("/api/products/:id", (req, res) => {
+  // GET A SINGLE PRODUCT FROM DB
+  res.status(200).json({
+
+  })
+})
+
 // app.listen(PORT, () => {
 //   console.log("Server is running on port " + PORT  );
 // })
