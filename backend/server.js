@@ -8,6 +8,10 @@ import { sql } from "./config/db.js"
 
 dotenv.config();
 
+
+
+
+
 const app = express();
 const PORT = process.env.PORT;
 console.log(PORT)
@@ -88,12 +92,35 @@ app.get("/api/products", (req, res) => {
 
 
 //after test delete this git
+
+app.post("/api/products", async (req, res) => {
+  // CREATE A NEW PRODUCT IN DB
+  const { name, image, price } = req.body;
+  if (!name || !image || !price) {
+    return res.status(400).json({ success: false, message: "Please provide all fields" });
+  }
+  try {
+    const result = await sql`
+      INSERT INTO products (name, image, price)
+      VALUES (${name}, ${image}, ${price})
+      RETURNING *
+    `;
+    res.status(201).json({ success: true, data: result[0] });
+  } catch (err) {
+    console.log("Error in create product", err.message);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+});
+
+
 app.get("/api/products/:id", (req, res) => {
   // GET A SINGLE PRODUCT FROM DB
   res.status(200).json({
 
   })
 })
+
+
 
 // app.listen(PORT, () => {
 //   console.log("Server is running on port " + PORT  );
