@@ -4,8 +4,10 @@ import {sql} from "../config/db.js";
 
 // CRUD OPERATIONS FOR PRODUCTS
 export const getProducts = async (req, res) => {
+
     // Logic to get all products from the database
     try{ 
+        console.log("Fetching products from database...");
        const products = await sql`SELECT * FROM products
        ORDER BY created_at DESC`;
        console.log("fetched products:", products);
@@ -109,4 +111,6 @@ export const deleteProduct = async (req, res) => {
   }
    
 }
+
+
 

@@ -10,4 +10,5 @@ export const sql = neon(
     `postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?sslmode=require`
 )
 
+
 //this sql function we export is used as a tagged template literal, which allows us to write sql querise safely 
