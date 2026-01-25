@@ -10,7 +10,7 @@ export const getProducts = async (req, res) => {
         console.log("Fetching products from database...");
        const products = await sql`SELECT * FROM products
        ORDER BY created_at DESC`;
-       console.log("fetched products:", products);
+       console.log("fetched products:", products);  
        res.status(200).json({success:true, data:products});
     }catch(err){
         console.log("Error in fetching products:", err.message);
