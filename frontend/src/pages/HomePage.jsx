@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useProductStore } from '../stores/useProductStore'
-import { PlusCircle, RefreshCw } from 'lucide-react';
+import { PlusCircle, RefreshCw, PackageOpen } from 'lucide-react';
 import ProductCard from '../components/ProductCards';
+import LoadingAnimation from '../components/LoadingAnimation';
 
 function Homepage() {
   const {products,loading,error, fetchProducts} = useProductStore();
@@ -28,16 +29,26 @@ function Homepage() {
       </div>
       {error && <div className='alert alert-error mb-8'>{error}</div>}
       {loading  ?(
-        <div className='flex justify-center items-center h-96'>
-          <span className='loading loading-spinner loading-lg'></span>
+        <LoadingAnimation />
+      ) : products.length === 0 ? (
+        <div className='flex flex-col items-center justify-center h-96 gap-4'>
+          <PackageOpen className='w-24 h-24 text-base-content/30' />
+          <h2 className='text-3xl font-bold text-base-content/70'>No Products Available</h2>
+          <p className='text-base-content/50 text-center max-w-md'>
+            There are currently no products in the store. Click the "Add Product" button to create your first product.
+          </p>
+          <button className='btn btn-primary mt-4'>
+            <PlusCircle className="size-5 mr-2"/>
+            Add Your First Product
+          </button>
         </div>
-      ) :(
+      ) : (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' >
         {products.map(product =>(
            <ProductCard key={product.id} product={product}/>
         ))}
         </div>
-      ) }
+      )}
     
     </main>
   )

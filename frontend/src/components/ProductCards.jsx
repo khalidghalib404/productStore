@@ -9,7 +9,7 @@ function ProductCard({ product }) {
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this product?')) {
-      await deleteProduct(product._id);
+      await deleteProduct(product.id);
     }
   };
 

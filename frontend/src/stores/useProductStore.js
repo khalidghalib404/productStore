@@ -1,5 +1,6 @@
 import {create} from 'zustand';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 const  BASE_URL = 'http://localhost:3001';
 
 export const  useProductStore = create((set,get) => ({
@@ -28,11 +29,14 @@ export const  useProductStore = create((set,get) => ({
         try {
             await axios.delete(`${BASE_URL}/api/products/${id}`);
             set((state) => ({
-                products: state.products.filter(product => product._id !== id),
+                products: state.products.filter(product => product.id !== id),
                 error: null
             }));
+            toast.success('Product deleted successfully!');
         } catch (error) {
-            set({error: error.response?.data?.message || 'Failed to delete product'});
+            const errorMessage = error.response?.data?.message || 'Failed to delete product';
+            set({error: errorMessage});
+            toast.error(errorMessage);
         } finally {
             set({loading: false});
         }
