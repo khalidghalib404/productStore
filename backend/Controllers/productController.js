@@ -91,23 +91,20 @@ export const updateProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
     // Logic to delete a product from the database
-  const {id} = req.params.id;
+  const {id} = req.params;
 
   try {
-    const deleteProduct = await sql`DELETE FROM products WHERE id = ${id} RETURNING *`;
-     res.status(200).json({success:true, message:"Product deleted successfully"});
+    const deletedProduct = await sql`DELETE FROM products WHERE id = ${id} RETURNING *`;
     
-     if (deleteProduct.length === 0){
+     if (deletedProduct.length === 0){
         return res.status(404).json({success:false, message:"Product not found"});
      }
 
+     res.status(200).json({success:true, message:"Product deleted successfully"});
 
   } catch (error) {
      console.log("Error in deleting product:", error.message);
       res.status(500).json({success:false, message:"Server Error"});
-
-
-
   }
    
 }
