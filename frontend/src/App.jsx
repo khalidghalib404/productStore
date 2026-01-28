@@ -7,6 +7,7 @@ import { useThemeStore } from './stores/themeStore'
 
 function App() {
   // Initialize theme store on app startup
+
   const { currentTheme } = useThemeStore();
 
   // Update debug display
@@ -34,6 +35,9 @@ function App() {
         </p>
       </div>
       Hello World!
+      <button>
+        click
+      </button>
     </div>
 
   )

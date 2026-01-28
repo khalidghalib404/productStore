@@ -48,6 +48,8 @@ function MyComponent() {
         Previous Theme
       </button>
 
+      
+
       {/* All available themes */}
       {themes.map(theme => (
         <button
@@ -59,6 +61,7 @@ function MyComponent() {
         </button>
       ))}
     </div>
+
   );
 }
 
