@@ -39,7 +39,7 @@ export const createProduct = async (req, res) => {
     const {name,price,image} = req.body;
 
     if (!name || !price || !image){
-        return res.status(500).json({success:false, message:"Please provide all required fields"}); 
+        return res.status(400).json({success:false, message:"Please provide all required fields"});
     }
 
     try{

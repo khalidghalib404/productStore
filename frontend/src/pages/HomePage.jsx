@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useProductStore } from '../stores/useProductStore'
-import { PlusCircle, RefreshCw, PackageOpen } from 'lucide-react';
+import { RefreshCw, PackageOpen } from 'lucide-react';
 import ProductCard from '../components/ProductCards';
 import LoadingAnimation from '../components/LoadingAnimation';
+import AddProductModal from '../components/addProductMode';
 
 function Homepage() {
   const {products,loading,error, fetchProducts} = useProductStore();
@@ -18,11 +19,8 @@ function Homepage() {
 
   return (
     <main className='container mx-auto px-4 py-8 max -w-6xl'>
-      <div className='flex justify-between items-center  mb-8' > 
-        <button className='btn btn-primary'>
-          <PlusCircle className="size-5 mr-2"/>
-          Add Product
-        </button>
+      <div className='flex justify-between items-center  mb-8' >
+        <AddProductModal />
         <button className='btn btn-ghost btn-circle' onClick={fetchProducts}>
           <RefreshCw className="size-5"/>
         </button>
@@ -37,10 +35,9 @@ function Homepage() {
           <p className='text-base-content/50 text-center max-w-md'>
             There are currently no products in the store. Click the "Add Product" button to create your first product.
           </p>
-          <button className='btn btn-primary mt-4'>
-            <PlusCircle className="size-5 mr-2"/>
-            Add Your First Product
-          </button>
+          <div className='mt-4'>
+            <AddProductModal />
+          </div>
         </div>
       ) : (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' >
