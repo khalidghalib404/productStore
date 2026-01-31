@@ -9,9 +9,9 @@ export const aj = arcjet({
   rules:[
     shield({
         //shield protects your server from common attacks ex    SQL INJECTION,XSS,CSRF, attacks
-         mode:"live", }),
+         mode:"DRY_RUN", }),
          detectBot({
-            mode:"live",
+            mode:"DRY_RUN",
             // block all the bots expect search engines
             allow:[
                 "CATEGORY:SEARCH_ENGINE",
@@ -22,7 +22,7 @@ export const aj = arcjet({
         
 
          tokenBucket({
-            mode:"live",
+            mode:"DRY_RUN",
             refillRate: 5,
             //allow 10 requests per minute
             interval:10,
