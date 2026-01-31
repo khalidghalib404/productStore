@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Edit2, Trash2, ShoppingCart, Heart } from 'lucide-react';
+import { Edit2, Trash2, ShoppingCart, Heart, Eye } from 'lucide-react';
 import { useProductStore } from '../stores/useProductStore';
+import { useNavigate } from 'react-router-dom';
 
 function ProductCard({ product }) {
   const [isLiked, setIsLiked] = useState(false);
   const [imageError, setImageError] = useState(false);
   const { deleteProduct } = useProductStore();
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this product?')) {
@@ -107,7 +109,14 @@ function ProductCard({ product }) {
         </div>
 
         {/* Card Actions */}
-        <div className="card-actions justify-end mt-4">
+        <div className="card-actions justify-between mt-4 gap-2">
+          <button
+            onClick={() => navigate(`/product/${product.id}`)}
+            className="btn btn-outline btn-sm flex-1 group/btn"
+          >
+            <Eye className="w-4 h-4 mr-1" />
+            View Details
+          </button>
           <button className="btn btn-primary btn-sm flex-1 group/btn">
             <ShoppingCart className="w-4 h-4 mr-1 group-hover/btn:animate-bounce" />
             Add to Cart
