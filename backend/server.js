@@ -64,19 +64,22 @@ async  function  initDB(){
   name VARCHAR(255) NOT NULL,
   image TEXT NOT NULL,
   price DECIMAL(10, 2) NOT NULL,
-  created_at  Timestamp DEFAULT CURRENT_TIMESTAMP
-  )
-  
-  
-   `;
+  description TEXT,
+  category VARCHAR(100),
+  stock INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )`;
    
-   // Alter existing table to change image column type
+   // Alter existing table to add new columns if they don't exist
    try {
-     await sql`ALTER TABLE products ALTER COLUMN image TYPE TEXT`;
-     console.log("Image column updated to TEXT type");
+     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS description TEXT`;
+     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS category VARCHAR(100)`;
+     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS stock INTEGER DEFAULT 0`;
+     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP`;
+     console.log("Table columns updated successfully");
    } catch(alterErr) {
-     // Column might already be TEXT or table doesn't exist yet
-     console.log("Image column already TEXT or table just created");
+     console.log("Columns already exist or error:", alterErr.message);
    }
    
    console.log("Database initialized successfully")

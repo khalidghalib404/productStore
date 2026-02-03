@@ -1,23 +1,246 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-@keyframes loading {
-  0% {
-    transform: translateX(-100%);
+@theme {
+  /* DaisyUI themes configuration */
+  --theme-light: light;
+  --theme-dark: dark;
+}
+
+@layer base {
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
   }
-  100% {
-    transform: translateX(400%);
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--b2));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--p));
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--pf));
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
   }
 }
 
-.delay-100 {
-  animation-delay: 0.1s;
+@layer components {
+  /* Custom animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .animate-slideIn {
+    animation: slideIn 0.5s ease-out;
+  }
+
+  .animate-scaleIn {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(to right, hsl(var(--p)), hsl(var(--s)), hsl(var(--a)));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Button ripple effect */
+  .btn-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .btn-ripple:active::after {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* Glass morphism effect */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  /* Custom badge styles */
+  .badge-glow {
+    box-shadow: 0 0 10px currentColor;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Hero section styles */
+  .hero-gradient {
+    background: linear-gradient(135deg, 
+      hsl(var(--p)) 0%, 
+      hsl(var(--s)) 50%, 
+      hsl(var(--a)) 100%);
+    background-size: 200% 200%;
+    animation: gradient 15s ease infinite;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Navbar enhancements */
+  .navbar-glass {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background-color: hsl(var(--p) / 0.9);
+  }
+
+  /* Footer styles */
+  .footer-gradient {
+    background: linear-gradient(to top, hsl(var(--b2)), hsl(var(--b1)));
+  }
+
+  /* Price tag animation */
+  .price-tag {
+    transition: all 0.3s;
+  }
+
+  .price-tag:hover {
+    transform: scale(1.1);
+  }
+
+  /* Cart badge pulse */
+  @keyframes badge-pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  .cart-badge {
+    animation: badge-pulse 2s ease-in-out infinite;
+  }
+
+  /* Loading spinner */
+  .spinner {
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-left-color: hsl(var(--p));
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Text shimmer effect */
+  .text-shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--p)) 0%,
+      hsl(var(--s)) 50%,
+      hsl(var(--p)) 100%
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+  }
+
+  @keyframes shimmer {
+    to {
+      background-position: 200% center;
+    }
+  }
 }
 
-.delay-200 {
-  animation-delay: 0.2s;
-}
+@layer utilities {
+  /* Smooth transitions */
+  * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-.delay-300 {
-  animation-delay: 0.3s;
+  /* Focus styles */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--p));
+    outline-offset: 2px;
+  }
 }

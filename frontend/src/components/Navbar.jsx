@@ -1,28 +1,47 @@
 import React from 'react';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Sparkles } from 'lucide-react';
 import ThemeSelectior from './ThemeSelectior';
-import {THEMES} from '../constant/index'  
+import { useCartStore } from '../stores/useCartStore';
+import { useNavigate } from 'react-router-dom';
+
 export default function Navbar() {
+  const { getCartItemsCount } = useCartStore();
+  const cartCount = getCartItemsCount();
+  const navigate = useNavigate();
+
   return (
-    <nav className="bg-primary shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="bg-base-100 shadow-lg sticky top-0 z-50 border-b border-base-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex justify-between items-center h-16">
           {/* Store Name */}
-          <div className="flex-shrink-0">
-            <h1 className="text-primary-content text-2xl font-bold">
-              <span className="text-accent">be</span>khar
-            </h1>
+          <div 
+            className="flex-shrink-0 cursor-pointer group"
+            onClick={() => navigate('/')}
+          >
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-8 h-8 text-primary animate-pulse" />
+              <h1 className="text-base-content text-3xl font-bold tracking-tight">
+                <span className="text-primary">be</span>
+                <span className="group-hover:text-primary transition-colors duration-300">khar</span>
+              </h1>
+            </div>
+            <p className="text-base-content/70 text-xs ml-10 -mt-1">Your Premium Store</p>
           </div>
 
           {/* Right side icons */}
           <div className="flex items-center space-x-4">
             {/* Shopping Cart */}
-            <button className="text-primary-content hover:bg-primary-content hover:text-primary p-2 rounded-md transition duration-300 relative">
-              <ShoppingCart size={24} />
-              {/* Cart badge - you can make this dynamic */}
-              <span className="absolute -top-1 -right-1 bg-error text-error-content text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                0
-              </span>
+            <button
+              onClick={() => navigate('/cart')}
+              className="btn btn-ghost btn-circle hover:bg-primary hover:text-primary-content transition-all duration-300 relative group"
+            >
+              <ShoppingCart size={24} className="group-hover:scale-110 transition-transform duration-300" />
+              {/* Cart badge - dynamic count */}
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-primary text-primary-content text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold cart-badge shadow-lg">
+                  {cartCount > 99 ? '99+' : cartCount}
+                </span>
+              )}
             </button>
 
             {/* Theme Selector */}
